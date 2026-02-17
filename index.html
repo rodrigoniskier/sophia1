@@ -3,136 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sophia-1: Mestre da Geometria</title>
+    <title>Sophia-1: Mestre da Geometria Completo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #f0fdf4;
-        }
-        h1, h2, h3, .font-title {
-            font-family: 'Fredoka', sans-serif;
-        }
-        .card {
-            transition: all 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        .step-box {
-            border-left: 4px solid #3b82f6;
-            background-color: #eff6ff;
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .nav-btn.active {
-            background-color: #ffffff;
-            color: #166534;
-            border-bottom: 4px solid #166534;
-            font-weight: bold;
-            transform: scale(1.05);
-        }
-        .shape-container svg {
-            max-height: 140px;
-            width: auto;
-            margin: 0 auto;
-        }
-        .canguru-badge {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        /* Curiosidade Card */
-        .fun-fact {
-            background-color: #fffbeb;
-            border: 2px dashed #fbbf24;
-        }
+        body { font-family: 'Nunito', sans-serif; background-color: #f0fdf4; }
+        h1, h2, h3, .font-title { font-family: 'Fredoka', sans-serif; }
+        .card { transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1); }
+        .step-box { border-left: 4px solid #3b82f6; background-color: #eff6ff; animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-btn.active { background-color: #ffffff; color: #166534; border-bottom: 4px solid #166534; font-weight: bold; transform: scale(1.05); }
+        .canguru-badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .school-badge { background-color: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; border: 1px solid #93c5fd; }
+        .fun-fact { background-color: #fffbeb; border: 2px dashed #fbbf24; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col">
-    <header class="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 shadow-lg">
+
+    <header class="bg-gradient-to-r from-green-700 to-emerald-600 text-white p-4 shadow-lg sticky top-0 z-30">
         <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="flex items-center gap-2">
-                <span class="text-3xl">📐</span>
+            <div class="flex items-center gap-3">
+                <div class="bg-white text-green-700 p-2 rounded-lg font-bold text-xl shadow">📐</div>
                 <div>
                     <h1 class="text-2xl font-bold tracking-wide">Sophia-1</h1>
-                    <p class="text-xs text-green-100 opacity-90">Academia de Geometria</p>
+                    <p class="text-xs text-green-100 opacity-90">Versão Completa: Conteúdo & Prática</p>
                 </div>
             </div>
-            <div class="flex gap-4">
-                <div class="text-sm bg-white/20 px-4 py-1 rounded-full backdrop-blur-sm border border-white/30 font-bold">
-                    Pontos: <span id="score-display">0</span>
+            <div class="flex gap-4 items-center">
+                <div class="text-sm bg-black/20 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/20 font-bold flex items-center gap-2">
+                    <span>⭐ Pontos:</span>
+                    <span id="score-display" class="text-yellow-300 text-lg">0</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="bg-green-500 text-white shadow-md sticky top-0 z-20 overflow-x-auto">
+    <nav class="bg-green-600 text-white shadow-md z-20 overflow-x-auto">
         <div class="max-w-5xl mx-auto flex">
-            <button onclick="renderSection('triangulos')" id="btn-triangulos" class="nav-btn active flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-400 transition">Triângulos 🔺</button>
-            <button onclick="renderSection('quadrilateros')" id="btn-quadrilateros" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-400 transition">Quadriláteros 🟧</button>
-            <button onclick="renderSection('poligonos')" id="btn-poligonos" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-400 transition">Polígonos 🔷</button>
-            <button onclick="renderSection('circulos')" id="btn-circulos" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-400 transition">Círculos 🔴</button>
-            <button onclick="renderSection('desafios')" id="btn-desafios" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap bg-yellow-500 hover:bg-yellow-400 text-yellow-900 font-bold border-l-4 border-yellow-600">🏆 Desafios</button>
+            <button onclick="renderSection('triangulos')" id="btn-triangulos" class="nav-btn active flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-500 transition border-r border-green-500/30">Triângulos 🔺</button>
+            <button onclick="renderSection('quadrilateros')" id="btn-quadrilateros" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-500 transition border-r border-green-500/30">Quadriláteros 🟧</button>
+            <button onclick="renderSection('poligonos')" id="btn-poligonos" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-500 transition border-r border-green-500/30">Polígonos 🔷</button>
+            <button onclick="renderSection('circulos')" id="btn-circulos" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap hover:bg-green-500 transition border-r border-green-500/30">Círculos 🔴</button>
+            <button onclick="renderSection('desafios')" id="btn-desafios" class="nav-btn flex-1 py-3 px-4 text-center whitespace-nowrap bg-yellow-500 hover:bg-yellow-400 text-yellow-900 font-bold border-l-4 border-yellow-600">📝 Exercícios</button>
         </div>
     </nav>
 
     <main id="content-area" class="flex-grow max-w-5xl mx-auto w-full p-4 sm:p-6 pb-20">
         </main>
 
-    <footer class="bg-slate-800 text-slate-400 text-center p-6 mt-8">
-        <p class="mb-2">Desenvolvido com 🧠 e 💻.</p>
-        <p class="text-xs">Treino para Canguru Matemático e OBMEP.</p>
+    <footer class="bg-slate-800 text-slate-400 text-center p-8 mt-8 border-t-4 border-green-600">
+        <p class="mb-2 font-bold text-slate-200">Sophia-1 Educational</p>
+        <p class="text-xs">Baseado no currículo escolar e desafios de lógica.</p>
     </footer>
 
     <script>
-        // --- DATA STRUCTURES (Adicionado campo 'funFact' e novos exemplos) ---
+        // --- BASE DE DADOS COMPLETA (Baseada na Imagem) ---
         const contentData = {
             triangulos: {
-                title: "O Mundo dos Triângulos",
+                title: "Triângulos: A Base de Tudo",
                 color: "blue",
-                intro: "A forma mais forte da engenharia! Você sabia que as pontes usam triângulos porque eles não deformam?",
-                funFact: "💡 **Curiosidade:** Se você pegar 3 gravetos de tamanhos aleatórios, nem sempre conseguirá fechar um triângulo. A soma de dois lados menores tem que ser maior que o grandão! (Desigualdade Triangular).",
+                intro: "A figura mais rígida da geometria. Revisaremos classificação, áreas, Pitágoras e a importante Semelhança.",
+                funFact: "🔦 **Curiosidade:** O Teorema de Tales permite medir a altura de uma pirâmide usando apenas a sombra dela e de um bastão. Isso é **Semelhança de Triângulos** pura!",
                 cards: [
                     {
-                        title: "1. Classificação (Famílias)",
+                        title: "1. Classificação (Lados & Ângulos)",
                         content: `
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                                <div>
-                                    <h4 class="font-bold text-blue-600 mb-1">Pelos Lados</h4>
-                                    <ul class="list-disc pl-4 space-y-1">
-                                        <li><strong>Equilátero:</strong> Os 3 irmãos iguais (60° cada).</li>
-                                        <li><strong>Isósceles:</strong> As 'pernas' iguais e base diferente.</li>
-                                        <li><strong>Escaleno:</strong> O 'bagunçado', tudo diferente.</li>
+                                <div class="bg-blue-50 p-3 rounded">
+                                    <h4 class="font-bold text-blue-700 mb-1 border-b border-blue-200 pb-1">Quanto aos Lados</h4>
+                                    <ul class="list-disc pl-4 space-y-1 text-gray-700">
+                                        <li><strong>Equilátero:</strong> 3 lados iguais (e ângulos de 60°).</li>
+                                        <li><strong>Isósceles:</strong> 2 lados iguais (ângulos da base iguais).</li>
+                                        <li><strong>Escaleno:</strong> 3 lados diferentes.</li>
                                     </ul>
                                 </div>
-                                <div>
-                                    <h4 class="font-bold text-blue-600 mb-1">Pelos Ângulos</h4>
-                                    <ul class="list-disc pl-4 space-y-1">
-                                        <li><strong>Retângulo:</strong> Tem um canto reto (90°) perfeito.</li>
-                                        <li><strong>Acutângulo:</strong> Todos pontudos (< 90°).</li>
-                                        <li><strong>Obtusângulo:</strong> Um ângulo bem aberto (> 90°).</li>
+                                <div class="bg-indigo-50 p-3 rounded">
+                                    <h4 class="font-bold text-indigo-700 mb-1 border-b border-indigo-200 pb-1">Quanto aos Ângulos</h4>
+                                    <ul class="list-disc pl-4 space-y-1 text-gray-700">
+                                        <li><strong>Acutângulo:</strong> Ângulos < 90°.</li>
+                                        <li><strong>Retângulo:</strong> Um ângulo de 90° (reto).</li>
+                                        <li><strong>Obtusângulo:</strong> Um ângulo > 90° (aberto).</li>
                                     </ul>
                                 </div>
                             </div>
                         `
                     },
                     {
-                        title: "2. Super Poderes (Fórmulas)",
+                        title: "2. Teoremas e Semelhança",
                         content: `
-                            <div class="space-y-2 text-sm">
-                                <div class="bg-blue-50 p-2 rounded border-l-4 border-blue-400"><strong>Área:</strong> (Base × Altura) dividido por 2. <br><em class="text-xs text-gray-500">"Metade de um retângulo!"</em></div>
-                                <div class="bg-red-50 p-2 rounded border-l-4 border-red-400"><strong>Pitágoras:</strong> a² = b² + c² <br><em class="text-xs text-gray-500">"O escorregador ao quadrado é igual à soma dos lados ao quadrado."</em></div>
+                            <div class="space-y-3 text-sm">
+                                <p><strong>Soma dos Ângulos:</strong> A soma interna é SEMPRE <strong>180°</strong>.</p>
+                                <div class="bg-white border border-gray-200 p-2 rounded">
+                                    <strong>Semelhança e Congruência:</strong><br>
+                                    Dois triângulos são <em>semelhantes</em> se têm os mesmos ângulos (um é o 'zoom' do outro).<br>
+                                    <em class="text-xs text-gray-500">Regra: Lados Proporcionais. Se a base dobra, a altura dobra.</em>
+                                </div>
+                                <div class="bg-red-50 p-2 rounded border-l-4 border-red-400">
+                                    <strong>Pitágoras (só triângulo retângulo):</strong><br>
+                                    Hipotenusa² = Cateto² + Cateto² (a² = b² + c²)
+                                </div>
                             </div>
                         `
                     }
@@ -140,59 +110,53 @@
                 examples: [
                     {
                         id: "ex_tri_1",
-                        title: "Descubra o X (Tales)",
-                        problem: "Temos retas paralelas cortadas. De um lado pedaços de 2 e 3 cm. Do outro, x e 9 cm. Quanto vale x?",
+                        title: "Semelhança (A Sombra do Prédio)",
+                        problem: "Um prédio projeta uma sombra de 30m. No mesmo horário, um poste de 2m projeta uma sombra de 3m. Qual a altura do prédio?",
                         steps: [
-                            "Imagine que é um espelho. A proporção de um lado é igual ao do outro.",
-                            "Monte a fração: <strong>2 está para 3</strong> assim como <strong>x está para 9</strong>.",
-                            "Equação: <strong>2/3 = x/9</strong>",
-                            "Multiplique cruzado (o 'X da Xuxa'): 3 . x = 2 . 9",
-                            "3x = 18",
-                            "x = 18 / 3 -> <strong>x = 6</strong>"
+                            "Conceito: Os raios do sol criam triângulos semelhantes.",
+                            "Monte a proporção: <strong>Altura Prédio / Sombra Prédio = Altura Poste / Sombra Poste</strong>.",
+                            "Substituindo: H / 30 = 2 / 3.",
+                            "Multiplica cruzado: 3 . H = 30 . 2",
+                            "3H = 60",
+                            "H = 60 / 3 -> <strong>H = 20 metros</strong>."
                         ],
-                        shape: `<svg viewBox="0 0 100 100"><line x1="10" y1="20" x2="90" y2="20" stroke="black"/><line x1="10" y1="50" x2="90" y2="50" stroke="black"/><line x1="10" y1="80" x2="90" y2="80" stroke="black"/><line x1="25" y1="10" x2="40" y2="90" stroke="blue" stroke-width="2"/><line x1="55" y1="10" x2="70" y2="90" stroke="blue" stroke-width="2"/><text x="28" y="35" font-size="10">2</text><text x="35" y="65" font-size="10">3</text><text x="58" y="35" font-size="10">x</text><text x="65" y="65" font-size="10">9</text></svg>`
-                    },
-                    {
-                        id: "ex_tri_2",
-                        title: "Pitágoras na Escada",
-                        problem: "Uma escada de 5m está encostada num muro. O pé da escada está a 3m do muro. Qual a altura que ela alcança?",
-                        steps: [
-                            "Identifique: Escada é a inclinação (Hipotenusa = 5). Chão = 3. Altura = x.",
-                            "Grito de Guerra: <strong>a² = b² + c²</strong>",
-                            "Substitua: <strong>5² = 3² + x²</strong>",
-                            "Calcule: 25 = 9 + x²",
-                            "Jogue o 9 pro outro lado: 25 - 9 = x²",
-                            "16 = x²",
-                            "Raiz quadrada de 16 é? <strong>4 metros!</strong>"
-                        ],
-                        shape: `<svg viewBox="0 0 100 80"><polygon points="20,70 60,70 60,30" fill="none" stroke="#2563eb" stroke-width="2"/><line x1="20" y1="70" x2="60" y2="30" stroke="red" stroke-width="3"/><text x="35" y="45" font-size="10" fill="red">5m</text><text x="35" y="80" font-size="10">3m</text><text x="65" y="55" font-size="10">x</text></svg>`
+                        shape: `<svg viewBox="0 0 150 80"><line x1="10" y1="70" x2="140" y2="70" stroke="black"/><rect x="20" y="30" width="10" height="40" fill="gray"/><line x1="30" y1="70" x2="80" y2="70" stroke="orange" stroke-width="2"/><rect x="100" y="50" width="2" height="20" fill="black"/><line x1="102" y1="70" x2="132" y2="70" stroke="orange" stroke-width="2"/><text x="45" y="65" font-size="8">30m</text><text x="110" y="65" font-size="8">3m</text><text x="105" y="45" font-size="8">2m</text><text x="22" y="25" font-size="8">H?</text></svg>`
                     }
                 ]
             },
             quadrilateros: {
-                title: "Reino dos Quadriláteros",
+                title: "Quadriláteros Notáveis",
                 color: "orange",
-                intro: "Figuras de 4 lados. Pense neles como telas de TV, pipas ou caixas.",
-                funFact: "🎮 **Curiosidade:** Todo quadrado é um retângulo, mas nem todo retângulo é um quadrado! O quadrado é o 'mago supremo' porque ele tem lados iguais E ângulos retos ao mesmo tempo.",
+                intro: "Figuras de 4 lados. A soma dos ângulos internos é sempre 360°. Inclui Paralelogramos e Trapézios.",
+                funFact: "🔶 **Nota:** Todo quadrado é um retângulo (tem ângulos retos) e também é um losango (tem lados iguais). Ele é a fusão perfeita!",
                 cards: [
                     {
-                        title: "1. A Família Real",
+                        title: "1. Tipos Principais",
                         content: `
                             <ul class="text-sm list-disc pl-5 space-y-1">
-                                <li><strong>Quadrado:</strong> O perfeitinho. Lados e ângulos iguais.</li>
-                                <li><strong>Retângulo:</strong> O esticado. Ângulos de 90°.</li>
-                                <li><strong>Losango:</strong> A Pipa. Lados iguais, mas pode ser tortinho.</li>
-                                <li><strong>Trapézio:</strong> A bolsa. Tem um par de lados paralelos (bases).</li>
+                                <li><strong>Paralelogramo:</strong> Lados opostos paralelos e iguais.</li>
+                                <li><strong>Retângulo:</strong> Paralelogramo com 4 ângulos de 90°.</li>
+                                <li><strong>Losango:</strong> Paralelogramo com 4 lados iguais.</li>
+                                <li><strong>Trapézio:</strong> Apenas um par de lados paralelos (bases).</li>
                             </ul>
                         `
                     },
                     {
-                        title: "2. Como medir o chão (Áreas)",
+                        title: "2. Fórmulas de Área",
                         content: `
-                            <div class="grid grid-cols-1 gap-1 text-sm">
-                                <p><strong>Retângulo/Quadrado:</strong> Lado × Lado.</p>
-                                <p><strong>Losango:</strong> (Diagonalzão × Diagonalzinha) / 2.</p>
-                                <p><strong>Trapézio:</strong> Média das bases × altura -> ((B+b).h)/2.</p>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <div class="bg-orange-50 p-2 rounded">
+                                    <strong>Retângulo/Paralel.:</strong><br>Base × Altura
+                                </div>
+                                <div class="bg-orange-50 p-2 rounded">
+                                    <strong>Quadrado:</strong><br>Lado²
+                                </div>
+                                <div class="bg-orange-50 p-2 rounded">
+                                    <strong>Trapézio:</strong><br>((BaseMaior + baseMenor) . h) / 2
+                                </div>
+                                <div class="bg-orange-50 p-2 rounded">
+                                    <strong>Losango:</strong><br>(DiagonalMaior . diagMenor) / 2
+                                </div>
                             </div>
                         `
                     }
@@ -200,222 +164,207 @@
                 examples: [
                     {
                         id: "ex_quad_1",
-                        title: "Área da Pipa (Losango)",
-                        problem: "Uma pipa tem varetas (diagonais) de 10cm e 8cm. Qual área de papel ela usa?",
+                        title: "Área do Trapézio",
+                        problem: "Um trapézio tem base maior 10, base menor 6 e altura 4. Qual a área?",
                         steps: [
-                            "Fórmula do Losango: <strong>(D . d) / 2</strong>",
-                            "Diagonais são as varetas cruzadas.",
-                            "Conta: (10 . 8) / 2",
-                            "80 / 2",
-                            "<strong>40 cm²</strong> de papel."
+                            "Fórmula: A = ((B + b) . h) / 2",
+                            "Substituindo: A = ((10 + 6) . 4) / 2",
+                            "Parênteses primeiro: A = (16 . 4) / 2",
+                            "Calculando: A = 64 / 2",
+                            "Resultado: <strong>32 unidades de área</strong>."
                         ],
-                        shape: `<svg viewBox="0 0 100 80"><polygon points="50,10 80,40 50,70 20,40" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/><line x1="50" y1="10" x2="50" y2="70" stroke="black" stroke-dasharray="2"/><line x1="20" y1="40" x2="80" y2="40" stroke="black" stroke-dasharray="2"/><text x="52" y="25" font-size="8">10</text><text x="25" y="38" font-size="8">8</text></svg>`
-                    },
-                    {
-                        id: "ex_quad_2",
-                        title: "Cerca do Terreno (Perímetro)",
-                        problem: "Um terreno retangular tem 20m de frente e 30m de fundo. Quantos metros de cerca preciso?",
-                        steps: [
-                            "Perímetro é a soma de TODOS os lados.",
-                            "Se é retângulo, tem dois lados de 20 e dois de 30.",
-                            "Conta: 20 + 20 + 30 + 30",
-                            "40 + 60",
-                            "<strong>100 metros</strong> de cerca."
-                        ],
-                        shape: `<svg viewBox="0 0 100 60"><rect x="10" y="10" width="80" height="40" fill="none" stroke="green" stroke-width="2"/><text x="45" y="58" font-size="10">20m</text><text x="92" y="35" font-size="10">30m</text></svg>`
+                        shape: `<svg viewBox="0 0 100 60"><polygon points="20,50 80,50 70,20 30,20" fill="none" stroke="#ea580c" stroke-width="2"/><line x1="30" y1="20" x2="30" y2="50" stroke="black" stroke-dasharray="2"/><text x="45" y="15" font-size="8">b=6</text><text x="45" y="58" font-size="8">B=10</text><text x="32" y="35" font-size="8">h=4</text></svg>`
                     }
                 ]
             },
             poligonos: {
-                title: "Polígonos Poderosos",
+                title: "Polígonos e seus Segredos",
                 color: "purple",
-                intro: "De 5 lados até o infinito! Onde vivem o Pentágono e o Hexágono.",
-                funFact: "🐝 **Curiosidade:** As abelhas usam Hexágonos (6 lados) nas colmeias porque é a forma que guarda mais mel gastando menos cera. É a eficiência máxima da natureza!",
+                intro: "Figuras com muitos lados. Aqui estudamos Diagonais, Apótema e Ângulos.",
+                funFact: "🐝 **Você sabia?** O Apótema é fundamental para calcular a área de hexágonos regulares, como os das colmeias de abelhas.",
                 cards: [
                     {
-                        title: "1. Regras do Clube",
+                        title: "1. Elementos do Polígono",
                         content: `
-                            <p class="text-sm mb-2"><strong>Soma dos Ângulos Internos:</strong> Imagine picotar a figura em triângulos. <br>Fórmula: (Nº lados - 2) × 180°.</p>
-                            <p class="text-sm"><strong>Diagonais:</strong> Linhas que ligam cantos opostos. <br>Fórmula: n(n - 3) / 2.</p>
+                            <ul class="text-sm list-disc pl-5 space-y-2">
+                                <li><strong>Polígono Regular:</strong> Todos os lados e todos os ângulos são iguais.</li>
+                                <li><strong>Apótema (a):</strong> Segmento que sai do centro e vai até o meio do lado (formando 90°).</li>
+                                <li><strong>Perímetro (P):</strong> Soma de todos os lados.</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "2. Fórmulas Mágicas",
+                        content: `
+                            <p class="text-sm mb-2 p-1 bg-purple-50 rounded"><strong>Soma Ângulos Internos (Si):</strong><br> Si = (n - 2) × 180° <br><span class="text-xs text-gray-500">(Onde n = número de lados)</span></p>
+                            <p class="text-sm mb-2 p-1 bg-purple-50 rounded"><strong>Número de Diagonais (d):</strong><br> d = n(n - 3) / 2</p>
+                            <p class="text-sm p-1 bg-purple-50 rounded"><strong>Área (Polígono Regular):</strong><br> A = (Perímetro × Apótema) / 2</p>
                         `
                     }
                 ],
                 examples: [
                     {
                         id: "ex_poli_1",
-                        title: "Ângulos do Octógono (UFC)",
-                        problem: "Qual a soma dos ângulos internos do ringue de luta (8 lados)?",
+                        title: "Diagonais do Pentágono",
+                        problem: "Quantas diagonais tem um Pentágono (5 lados)?",
                         steps: [
-                            "n = 8.",
-                            "Tire 2: 8 - 2 = 6 (cabem 6 triângulos dentro).",
-                            "Multiplique por 180: 6 × 180.",
-                            "6 × 100 = 600... 6 × 80 = 480...",
-                            "Total: <strong>1080°</strong>"
+                            "Fórmula: d = n(n - 3) / 2",
+                            "n = 5. Substitua: d = 5(5 - 3) / 2",
+                            "Resolva parênteses: d = 5(2) / 2",
+                            "Multiplique: d = 10 / 2",
+                            "Resultado: <strong>5 diagonais</strong> (formam uma estrela!)."
                         ],
-                        shape: `<svg viewBox="0 0 100 100"><polygon points="30,10 70,10 90,30 90,70 70,90 30,90 10,70 10,30" fill="none" stroke="#7e22ce" stroke-width="2"/><text x="35" y="55" font-size="10">8 lados</text></svg>`
+                        shape: `<svg viewBox="0 0 100 100"><polygon points="50,10 90,40 75,90 25,90 10,40" fill="none" stroke="#7e22ce" stroke-width="2"/><path d="M50 10 L75 90 M50 10 L25 90 M90 40 L25 90 M90 40 L10 40 M75 90 L10 40" stroke="purple" stroke-width="0.5" stroke-dasharray="2"/></svg>`
                     }
                 ]
             },
             circulos: {
-                title: "Círculos e Redondos",
+                title: "Círculo e Circunferência",
                 color: "red",
-                intro: "A forma perfeita. Sem cantos, sem começo e sem fim.",
-                funFact: "🍕 **Curiosidade:** Se você dividir o comprimento de QUALQUER círculo pelo diâmetro dele, o resultado é sempre o mesmo número mágico: 3,14159... (O famoso Pi - π).",
+                intro: "A distinção importante: Circunferência é a linha (borda), Círculo é a região preenchida (pizza).",
+                funFact: "🎡 **Física:** A distância que uma roda percorre em uma volta completa é exatamente o comprimento da sua Circunferência (2πR).",
                 cards: [
                     {
-                        title: "1. O Vocabulário",
+                        title: "1. Elementos da Circunferência",
                         content: `
-                            <ul class="text-sm list-disc pl-5">
-                                <li><strong>Raio (R):</strong> Do centro até a borda (metade).</li>
-                                <li><strong>Diâmetro (D):</strong> De um lado ao outro passando pelo meio (2 × Raio).</li>
-                                <li><strong>Corda:</strong> Liga dois pontos mas não passa no meio.</li>
+                            <ul class="text-sm list-disc pl-5 space-y-1">
+                                <li><strong>Raio (R):</strong> Centro até a borda.</li>
+                                <li><strong>Diâmetro (D):</strong> Lado a lado passando pelo centro (D = 2R).</li>
+                                <li><strong>Corda:</strong> Liga dois pontos (maior corda = diâmetro).</li>
+                                <li><strong>Arco:</strong> Um pedaço da curva da circunferência.</li>
                             </ul>
                         `
                     },
                     {
-                        title: "2. As Contas",
+                        title: "2. Ângulos e Fórmulas",
                         content: `
-                            <p class="text-sm mb-1"><strong>Comprimento (A Borda):</strong> 2 . π . R (Lembre: 'Dois Pierre').</p>
-                            <p class="text-sm"><strong>Área (O Recheio):</strong> π . R² (Lembre: 'Pierre ao quadrado').</p>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>Comprimento (C):</strong> 2 . π . R</p>
+                                <p><strong>Área (A):</strong> π . R²</p>
+                                <div class="border-t pt-2 mt-2">
+                                    <p><strong>Ângulo Central:</strong> Igual à medida do arco.</p>
+                                    <p><strong>Ângulo Inscrito:</strong> O vértice está na borda. Vale a METADE do arco.</p>
+                                </div>
+                            </div>
                         `
                     }
                 ],
                 examples: [
                     {
                         id: "ex_circ_1",
-                        title: "Área da Pizza Gigante",
-                        problem: "Uma pizza tem raio de 10cm. Qual a área de queijo?",
+                        title: "Ângulo Inscrito",
+                        problem: "Um arco mede 80°. Quanto mede o ângulo inscrito correspondente (alfa)?",
                         steps: [
-                            "Fórmula da área (recheio): <strong>π . R²</strong>",
-                            "R = 10.",
-                            "10 ao quadrado é 10 x 10 = 100.",
-                            "Área = <strong>100π cm²</strong> (ou aprox. 314 cm²)."
+                            "Regra: O ângulo inscrito é a metade do arco que ele enxerga.",
+                            "Arco = 80°.",
+                            "Alfa = 80 / 2",
+                            "Resultado: <strong>40°</strong>."
                         ],
-                        shape: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#fecaca" stroke="#ef4444"/><path d="M50 50 L90 50" stroke="black"/><text x="60" y="45" font-size="10">R=10</text></svg>`
-                    },
-                    {
-                        id: "ex_circ_2",
-                        title: "Coroa Circular (O Donut)",
-                        problem: "Temos um círculo grande (R=5) e um buraco no meio (r=3). Qual a área da parte sólida?",
-                        steps: [
-                            "Lógica: Área do Grande MENOS Área do Pequeno.",
-                            "Grande: π . 5² = 25π.",
-                            "Pequeno: π . 3² = 9π.",
-                            "Subtração: 25π - 9π",
-                            "Resultado: <strong>16π</strong> unidades de área."
-                        ],
-                        shape: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#fecaca" stroke="#ef4444"/><circle cx="50" cy="50" r="24" fill="white" stroke="#ef4444"/><text x="45" y="55" font-size="8">r=3</text><text x="45" y="25" font-size="8">R=5</text></svg>`
+                        shape: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#ef4444"/><path d="M50 50 L90 50" stroke="gray" stroke-dasharray="2"/><line x1="20" y1="20" x2="80" y2="20" stroke="none"/><path d="M10 50 Q 50 10 90 50" fill="none" stroke="transparent"/><text x="85" y="40" font-size="8">80°</text><line x1="10" y1="50" x2="50" y2="90" stroke="red"/><line x1="90" y1="50" x2="50" y2="90" stroke="red"/><text x="45" y="85" font-size="8">α</text></svg>`
                     }
                 ]
             }
         };
 
         const exercisesData = [
-            // --- NOVOS DESAFIOS ADICIONADOS ---
+            // --- EXERCÍCIOS ESCOLARES (BASICS FIRST) ---
+            {
+                id: 1,
+                category: "Aquecimento Escolar",
+                isCanguru: false,
+                question: "Qual é a área de um retângulo com base 8 cm e altura 5 cm?",
+                options: ["13 cm²", "40 cm²", "26 cm²", "20 cm²"],
+                correctIndex: 1,
+                explanation: ["Fórmula: Base x Altura. 8 x 5 = 40."]
+            },
+            {
+                id: 2,
+                category: "Aquecimento Escolar",
+                isCanguru: false,
+                question: "Se o raio de um círculo é 3 cm, qual é o seu diâmetro?",
+                options: ["1.5 cm", "3 cm", "6 cm", "9 cm"],
+                correctIndex: 2,
+                explanation: ["O diâmetro é o dobro do raio. 2 x 3 = 6."]
+            },
+            {
+                id: 3,
+                category: "Aquecimento Escolar",
+                isCanguru: false,
+                question: "Em um triângulo, dois ângulos medem 50° e 60°. Quanto mede o terceiro ângulo?",
+                options: ["70°", "80°", "90°", "60°"],
+                correctIndex: 0,
+                explanation: ["A soma deve ser 180°. Temos 50+60=110. 180 - 110 = 70°."]
+            },
+            {
+                id: 4,
+                category: "Aquecimento Escolar",
+                isCanguru: false,
+                question: "Qual a soma dos ângulos internos de um Quadrado?",
+                options: ["180°", "360°", "540°", "90°"],
+                correctIndex: 1,
+                explanation: ["Qualquer quadrilátero soma 360°. O quadrado tem 4 ângulos de 90° (4x90=360)."]
+            },
+            {
+                id: 5,
+                category: "Aquecimento Escolar",
+                isCanguru: false,
+                question: "Qual figura possui 4 lados iguais, mas não tem necessariamente ângulos de 90°?",
+                options: ["Retângulo", "Trapézio", "Losango", "Escaleno"],
+                correctIndex: 2,
+                explanation: ["O Losango tem 4 lados iguais (como o quadrado), mas pode ser 'achatado'."]
+            },
+            {
+                id: 6,
+                category: "Aquecimento Escolar",
+                isCanguru: false,
+                question: "Calcule o número de diagonais de um Hexágono (6 lados).",
+                options: ["6", "9", "12", "5"],
+                correctIndex: 1,
+                explanation: ["Fórmula: n(n-3)/2. Hexágono n=6. 6(3)/2 = 18/2 = 9."]
+            },
+
+            // --- DESAFIOS CANGURU / LÓGICA (ADVANCED) ---
             {
                 id: 101,
-                category: "Lógica Canguru",
+                category: "Lógica & Aritmética",
                 isCanguru: true,
-                question: "O ano de 2025 é um quadrado perfeito (45 × 45 = 2025). Daqui a quantos anos ocorrerá o próximo ano que também será um quadrado perfeito?",
+                question: "O ano de 2025 é um quadrado perfeito (45²). Daqui a quantos anos teremos o próximo quadrado perfeito?",
                 options: ["46 anos", "89 anos", "91 anos", "100 anos"],
                 correctIndex: 2,
-                explanation: [
-                    "Hoje: 45² = 2025.",
-                    "Próximo: 46².",
-                    "46 × 46 = (45+1)×(45+1) = 2116.",
-                    "Diferença: 2116 - 2025.",
-                    "Dica mental: 45+45+1 = 91 anos."
-                ]
+                explanation: ["O próximo é 46². 46x46 = 2116. Diferença: 2116 - 2025 = 91 anos."]
             },
             {
                 id: 102,
                 category: "Geometria Visual",
                 isCanguru: true,
-                question: "Dois quadrados de lado 10 cm são colocados um em cima do outro. O bico de um está exatamente no centro do outro. Qual a área coberta pelos dois juntos?",
-                options: ["20 cm²", "25 cm²", "175 cm²", "100 cm²"],
+                question: "Temos dois quadrados de lado 10cm sobrepostos. Um vértice está no centro do outro. Qual a área da interseção?",
+                options: ["20 cm²", "25 cm²", "50 cm²", "10 cm²"],
                 correctIndex: 1,
-                explanation: [
-                    "Truque de rotação: Se você girar o quadrado de cima ao redor do centro, a área sobreposta não muda.",
-                    "Fica fácil ver que ele cobre exatamente 1/4 do quadrado de baixo.",
-                    "Área total do quadrado = 100.",
-                    "Sobreposição = 100 / 4 = 25 cm²."
-                ]
+                explanation: ["Se girarmos o quadrado em torno do centro, vemos que ele cobre sempre 1/4 da área. Área total 100. 1/4 de 100 = 25."]
             },
             {
-                id: 106,
-                category: "Lógica Temporal",
+                id: 103,
+                category: "Lógica",
                 isCanguru: true,
-                question: "Um relógio digital mostra 20:25. Qual é o tempo mínimo para vermos novamente os mesmos quatro dígitos (0, 2, 2, 5) em alguma ordem?",
-                options: ["Em 4h 25min (00:52)", "Em 1h 37min (22:05)", "Em 2h 27min (22:50)", "Em 5h (01:25)"],
-                correctIndex: 1,
-                explanation: [
-                    "Temos dígitos 0, 2, 2, 5.",
-                    "Próximas horas possíveis: 21h (não tem 1), 22h (tem dois 2, falta 0 e 5).",
-                    "Tentando 22h: Precisamos dos minutos 0 e 5. -> 22:05.",
-                    "De 20:25 até 22:05.",
-                    "20:25 -> 21:25 (1h) -> 22:05 (+40min). Total 1h 40min. Ops, cálculo exato: 20:25 até 22:25 são 2h. Menos 20min = 1h 40min. Resposta mais próxima 22:05."
-                ]
+                question: "Um relógio marca 20:25. Qual o tempo mínimo para ver os mesmos dígitos (0, 2, 2, 5) novamente?",
+                options: ["1h 37min (22:05)", "2h 00min", "4h 25min", "5h 00min"],
+                correctIndex: 0,
+                explanation: ["Os dígitos são 0, 2, 2, 5. Próxima hora possível com 2 é 22h. Minutos com 0 e 5 formam 05. Horário: 22:05."]
             },
             {
-                id: 107,
-                category: "Cubo Pintado",
+                id: 104,
+                category: "Geometria Espacial",
                 isCanguru: true,
-                question: "Um cubo 3x3x3 é feito de 27 cubinhos brancos. Pintamos o cubo grande de azul por fora. Quantos cubinhos pequenos continuam totalmente brancos?",
-                options: ["1", "3", "5", "9"],
+                question: "Cubo 3x3x3 pintado de azul por fora. Quantos cubinhos pequenos permanecem brancos (sem tinta)?",
+                options: ["1", "8", "9", "7"],
                 correctIndex: 0,
-                explanation: [
-                    "Imagine as camadas descascando como uma cebola.",
-                    "Os cubos da casca externa recebem tinta.",
-                    "Só o 'miolo' fica protegido.",
-                    "Em um cubo 3x3x3, o miolo é um cubo 1x1x1.",
-                    "Resposta: Apenas 1 cubinho central."
-                ]
-            },
-            // --- QUESTÕES CLÁSSICAS ---
-            {
-                id: 1,
-                category: "Triângulos",
-                isCanguru: false,
-                question: "Um triângulo isósceles (2 lados iguais) tem um ângulo no topo de 40°. Quanto medem os ângulos da base?",
-                options: ["40° e 100°", "70° e 70°", "60° e 60°", "50° e 90°"],
-                correctIndex: 1,
-                explanation: ["Total = 180°. Topo = 40°. Sobra 140°. Como a base é igual: 140 ÷ 2 = 70°."]
-            },
-            {
-                id: 2,
-                category: "Pitágoras",
-                isCanguru: false,
-                question: "Qual o tamanho da diagonal de um retângulo 3m x 4m?",
-                options: ["5m", "6m", "7m", "12m"],
-                correctIndex: 0,
-                explanation: ["Triângulo clássico 3-4-5. Ou faça: 3² + 4² = 9 + 16 = 25. Raiz de 25 é 5."]
-            },
-            {
-                id: 3,
-                category: "Polígonos",
-                isCanguru: false,
-                question: "Quantos graus soma um Hexágono (6 lados)?",
-                options: ["360°", "540°", "720°", "900°"],
-                correctIndex: 2,
-                explanation: ["Fórmula (n-2)x180. (6-2)x180 = 4x180 = 720°."]
-            },
-            {
-                id: 5,
-                category: "Áreas",
-                isCanguru: false,
-                question: "Se a área de um quadrado é 64 cm², quanto mede o lado?",
-                options: ["4 cm", "8 cm", "16 cm", "32 cm"],
-                correctIndex: 1,
-                explanation: ["Qual número vezes ele mesmo dá 64? Tabuada do 8! (8x8=64)."]
+                explanation: ["Apenas o cubo central do 'miolo' não toca a parte externa. É um cubo 1x1x1."]
             }
         ];
 
-        // --- GLOBAL STATE ---
         let currentScore = 0;
 
-        // --- RENDER FUNCTIONS ---
         function renderSection(sectionId) {
-            // Update Nav
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`btn-${sectionId}`).classList.add('active');
             
@@ -428,13 +377,10 @@
 
             const data = contentData[sectionId];
             
-            // Generate Examples
             let examplesHtml = data.examples.map((ex, idx) => `
-                <div class="bg-white rounded-xl shadow-lg border-l-4 border-${data.color}-500 overflow-hidden mb-8 transform transition hover:scale-[1.01]">
+                <div class="bg-white rounded-xl shadow-lg border-l-4 border-${data.color}-500 overflow-hidden mb-8">
                     <div class="p-4 bg-${data.color}-50 flex justify-between items-center border-b border-${data.color}-100">
-                        <h3 class="font-bold text-lg text-${data.color}-800 flex items-center gap-2">
-                            <span>📝</span> ${ex.title}
-                        </h3>
+                        <h3 class="font-bold text-lg text-${data.color}-800 flex items-center gap-2">📝 ${ex.title}</h3>
                         <span class="text-xs font-bold uppercase text-${data.color}-500 bg-white px-3 py-1 rounded-full shadow-sm">Exemplo ${idx + 1}</span>
                     </div>
                     <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -443,100 +389,71 @@
                         </div>
                         <div class="col-span-2 flex flex-col justify-between">
                             <div>
-                                <p class="text-gray-800 mb-4 font-medium text-lg leading-relaxed">${ex.problem}</p>
+                                <p class="text-gray-800 mb-4 font-medium text-lg">${ex.problem}</p>
                                 <div id="steps-container-${ex.id}" class="space-y-3 mb-4"></div>
                             </div>
-                            
-                            <div class="flex gap-2 mt-2">
-                                <button onclick="revealStep('${ex.id}', ${idx}, '${sectionId}')" id="btn-reveal-${ex.id}" class="bg-${data.color}-600 hover:bg-${data.color}-700 text-white py-2 px-6 rounded-lg font-bold shadow-md hover:shadow-lg transition flex items-center gap-2 w-fit">
-                                    <span>Resolver Passo a Passo</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>
+                            <div class="flex gap-2">
+                                <button onclick="revealStep('${ex.id}', ${idx}, '${sectionId}')" id="btn-reveal-${ex.id}" class="bg-${data.color}-600 hover:bg-${data.color}-700 text-white py-2 px-6 rounded-lg font-bold shadow-md transition flex items-center gap-2">
+                                    <span>Ver Passo</span> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>
                                 </button>
-                                <button onclick="resetStep('${ex.id}')" id="btn-reset-${ex.id}" class="hidden bg-gray-100 hover:bg-gray-200 text-gray-600 py-2 px-4 rounded-lg font-bold transition">
-                                    🔄 Reiniciar
-                                </button>
+                                <button onclick="resetStep('${ex.id}')" id="btn-reset-${ex.id}" class="hidden bg-gray-100 hover:bg-gray-200 text-gray-600 py-2 px-4 rounded-lg font-bold transition">Reiniciar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             `).join('');
 
-            // Generate Theory Cards
             let cardsHtml = data.cards.map(card => `
                 <div class="card bg-white p-6 rounded-xl shadow border border-gray-100 h-full">
-                    <h3 class="font-title text-xl text-${data.color}-600 mb-4 border-b pb-2 flex items-center gap-2">
-                        ${card.title}
-                    </h3>
+                    <h3 class="font-title text-xl text-${data.color}-600 mb-4 border-b pb-2">${card.title}</h3>
                     <div class="text-gray-600 leading-relaxed">${card.content}</div>
                 </div>
             `).join('');
 
-            // Main Render
             container.innerHTML = `
                 <div class="animate-fade-in space-y-8">
                     <div class="text-center">
                         <h2 class="text-4xl font-bold text-${data.color}-700 font-title mb-2">${data.title}</h2>
                         <p class="text-gray-600 text-lg max-w-2xl mx-auto">${data.intro}</p>
                     </div>
-
                     <div class="fun-fact p-4 rounded-lg shadow-sm text-yellow-900 flex gap-3 items-start max-w-3xl mx-auto">
-                        <span class="text-2xl">🤓</span>
-                        <p>${data.funFact}</p>
+                        <span class="text-2xl">🤓</span> <p>${data.funFact}</p>
                     </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        ${cardsHtml}
-                    </div>
-                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">${cardsHtml}</div>
                     <div class="pt-8">
-                        <h3 class="text-2xl font-bold text-gray-700 mb-6 font-title text-center flex items-center justify-center gap-2">
-                            <span>🧠</span> Exemplos Práticos
-                        </h3>
+                        <h3 class="text-2xl font-bold text-gray-700 mb-6 font-title text-center">Exemplos Resolvidos</h3>
                         ${examplesHtml}
                     </div>
                 </div>
             `;
-
-            // Reset step counters
-            data.examples.forEach(ex => {
-                window[`stepIndex_${ex.id}`] = 0;
-            });
+            data.examples.forEach(ex => window[`stepIndex_${ex.id}`] = 0);
         }
 
         function renderExercises(container) {
             let exercisesHtml = exercisesData.map((ex, index) => {
                 const badge = ex.isCanguru 
-                    ? `<span class="canguru-badge flex items-center gap-1">🦘 Canguru Matemático</span>` 
-                    : `<span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">Exercício Escolar</span>`;
-                
-                const borderClass = ex.isCanguru ? "border-orange-400 bg-orange-50/50" : "border-blue-400 bg-white";
+                    ? `<span class="canguru-badge">🏆 Desafio Canguru</span>` 
+                    : `<span class="school-badge">📚 Exercício Escolar</span>`;
+                const borderClass = ex.isCanguru ? "border-orange-400 bg-orange-50/30" : "border-blue-400 bg-white";
                 
                 return `
-                <div class="p-6 rounded-xl shadow-md ${borderClass} border-l-8 mb-8 transition hover:shadow-lg">
+                <div class="p-6 rounded-xl shadow-md ${borderClass} border-l-8 mb-8">
                     <div class="flex justify-between items-start mb-4">
                         ${badge}
                         <span class="text-gray-400 font-mono text-sm">#${index + 1}</span>
                     </div>
                     <h3 class="text-xl font-bold text-gray-800 mb-6">${ex.question}</h3>
-                    
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                         ${ex.options.map((opt, i) => `
-                            <button onclick="checkAnswer(${ex.id}, ${i})" class="option-btn-${ex.id} w-full text-left p-4 rounded-lg bg-white border-2 border-gray-100 hover:border-yellow-400 hover:bg-yellow-50 transition shadow-sm font-medium text-gray-700">
-                                <span class="inline-block w-6 font-bold text-gray-400">${['A','B','C','D'][i]}.</span> ${opt}
+                            <button onclick="checkAnswer(${ex.id}, ${i})" class="option-btn-${ex.id} w-full text-left p-4 rounded-lg bg-white border-2 border-gray-100 hover:border-blue-400 hover:bg-blue-50 transition shadow-sm font-medium text-gray-700">
+                                <span class="font-bold text-gray-400 mr-2">${['A','B','C','D'][i]}.</span> ${opt}
                             </button>
                         `).join('')}
                     </div>
-                    
-                    <div id="feedback-${ex.id}" class="hidden p-4 rounded-lg mb-3 text-sm animate-pulse"></div>
-                    
-                    <div id="solution-${ex.id}" class="hidden mt-4 bg-white p-5 rounded-lg border border-green-200 shadow-sm">
-                        <h4 class="font-bold text-green-700 mb-2 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-                            Explicação Detalhada:
-                        </h4>
-                        <ul class="list-disc pl-5 space-y-2 text-gray-600">
-                            ${ex.explanation.map(step => `<li>${step}</li>`).join('')}
-                        </ul>
+                    <div id="feedback-${ex.id}" class="hidden p-4 rounded-lg mb-3 text-sm"></div>
+                    <div id="solution-${ex.id}" class="hidden mt-4 bg-white p-5 rounded-lg border border-green-200 shadow-inner">
+                        <h4 class="font-bold text-green-700 mb-2">Explicação:</h4>
+                        <p class="text-gray-700">${ex.explanation}</p>
                     </div>
                 </div>
             `}).join('');
@@ -544,15 +461,14 @@
             container.innerHTML = `
                 <div class="max-w-3xl mx-auto">
                     <div class="text-center mb-10">
-                        <h2 class="text-4xl font-bold text-yellow-600 font-title mb-2">Arena de Desafios 🏆</h2>
-                        <p class="text-gray-600">Teste sua lógica contra questões reais de competições.</p>
+                        <h2 class="text-4xl font-bold text-yellow-600 font-title mb-2">Central de Exercícios</h2>
+                        <p class="text-gray-600">Comece pelo básico e avance para os desafios!</p>
                     </div>
                     ${exercisesHtml}
                 </div>
             `;
         }
 
-        // --- INTERACTIVE LOGIC ---
         function revealStep(exampleId, exampleIndex, sectionId) {
             const data = contentData[sectionId];
             const example = data.examples[exampleIndex];
@@ -561,22 +477,13 @@
             if (currentIndex < example.steps.length) {
                 const container = document.getElementById(`steps-container-${exampleId}`);
                 const stepText = example.steps[currentIndex];
-                
                 const div = document.createElement('div');
                 div.className = 'step-box p-3 rounded-r text-gray-800 text-sm flex gap-4 items-center shadow-sm';
-                div.innerHTML = `
-                    <div class="bg-${data.color}-600 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center font-bold shadow-sm">${currentIndex + 1}</div>
-                    <div class="flex-grow">${stepText}</div>
-                `;
+                div.innerHTML = `<div class="bg-${data.color}-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs">${currentIndex + 1}</div><div class="flex-grow">${stepText}</div>`;
                 container.appendChild(div);
-                
                 window[`stepIndex_${exampleId}`]++;
-                
-                // Button state logic
                 if (window[`stepIndex_${exampleId}`] >= example.steps.length) {
-                    const btn = document.getElementById(`btn-reveal-${exampleId}`);
-                    btn.classList.add('opacity-50', 'cursor-not-allowed');
-                    btn.innerHTML = `<span>Concluído! ✅</span>`;
+                    document.getElementById(`btn-reveal-${exampleId}`).classList.add('hidden');
                     document.getElementById(`btn-reset-${exampleId}`).classList.remove('hidden');
                 }
             }
@@ -585,12 +492,7 @@
         function resetStep(exampleId) {
             document.getElementById(`steps-container-${exampleId}`).innerHTML = '';
             window[`stepIndex_${exampleId}`] = 0;
-            
-            // Restore button
-            const btn = document.getElementById(`btn-reveal-${exampleId}`);
-            btn.classList.remove('opacity-50', 'cursor-not-allowed', 'hidden');
-            btn.innerHTML = `<span>Resolver Passo a Passo</span> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>`;
-            
+            document.getElementById(`btn-reveal-${exampleId}`).classList.remove('hidden');
             document.getElementById(`btn-reset-${exampleId}`).classList.add('hidden');
         }
 
@@ -598,43 +500,31 @@
             const exercise = exercisesData.find(e => e.id === questionId);
             const buttons = document.querySelectorAll(`.option-btn-${questionId}`);
             const feedbackBox = document.getElementById(`feedback-${questionId}`);
-            const solutionBox = document.getElementById(`solution-${questionId}`);
-            const scoreDisplay = document.getElementById('score-display');
             
-            // Prevent multiple clicks
             if(buttons[0].disabled) return;
             
             buttons.forEach(btn => {
                 btn.disabled = true;
-                btn.classList.remove('hover:bg-yellow-50', 'hover:border-yellow-400');
+                btn.classList.remove('hover:bg-blue-50', 'hover:border-blue-400');
             });
 
             if (selectedIndex === exercise.correctIndex) {
-                // Correct
                 buttons[selectedIndex].classList.add('bg-green-100', 'border-green-500', 'text-green-800');
-                feedbackBox.innerHTML = "<strong class='text-lg'>✨ Excelente! Resposta Correta!</strong>";
+                feedbackBox.innerHTML = "<strong>✨ Correto! Muito bem!</strong>";
                 feedbackBox.className = "p-4 rounded-lg mb-3 text-sm bg-green-50 text-green-800 border border-green-200";
-                
-                // Update Score
                 currentScore += 10;
-                scoreDisplay.innerText = currentScore;
-                scoreDisplay.parentElement.classList.add('bg-green-400', 'text-white');
-                setTimeout(() => scoreDisplay.parentElement.classList.remove('bg-green-400', 'text-white'), 500);
-                
+                document.getElementById('score-display').innerText = currentScore;
             } else {
-                // Incorrect
                 buttons[selectedIndex].classList.add('bg-red-100', 'border-red-500', 'text-red-800');
-                buttons[exercise.correctIndex].classList.add('bg-green-50', 'border-green-300', 'ring-2', 'ring-green-400'); // Highlight correct
-                feedbackBox.innerHTML = "<strong>Ops, não foi dessa vez.</strong> O correto está destacado em verde.";
+                buttons[exercise.correctIndex].classList.add('bg-green-50', 'border-green-300', 'ring-2', 'ring-green-400');
+                feedbackBox.innerHTML = "<strong>Ops! Tente entender a explicação abaixo.</strong>";
                 feedbackBox.className = "p-4 rounded-lg mb-3 text-sm bg-red-50 text-red-800 border border-red-200";
             }
-            
             feedbackBox.classList.remove('hidden');
-            solutionBox.classList.remove('hidden');
-            solutionBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            document.getElementById(`solution-${questionId}`).classList.remove('hidden');
         }
 
-        // Initialize
+        // Init
         renderSection('triangulos');
     </script>
 </body>
